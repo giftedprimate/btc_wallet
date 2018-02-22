@@ -1,0 +1,14 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Load index page
+GET        /                  controllers.Assets.at(path="/public", file="index.html")
+
+GET        /                  controllers.HomeController.testWallet
+
+# An example route
+GET        /v1/summary        controllers.HomeController.appSummary
+
+# Map static resources from the /public folder to the file resource path
+GET        /*file             controllers.Assets.at(path="/public", file)
