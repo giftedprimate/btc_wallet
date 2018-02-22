@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 class StartupWalletLoader @Inject()(
                                      @Named("WalletActor") walletClient : ActorRef
                                    )(implicit ec: ExecutionContext) {
-  def initiateBlockChain = walletClient ! InitiateBlockChain()
+  def initiateBlockChain = walletClient ! InitiateBlockChain
   initiateBlockChain
 }
 

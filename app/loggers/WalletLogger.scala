@@ -1,8 +1,7 @@
 package loggers
 
+import actors.models.WalletInfo
 import com.google.inject.Singleton
-import org.bitcoinj.core.NetworkParameters
-import org.bitcoinj.wallet.Wallet
 import play.api.Logger
 
 @Singleton
@@ -22,6 +21,8 @@ class WalletLogger {
   def TestnetConnected: Unit = logger.info("[Network] Testnet connected.")
 
   def PeerConnected(port: String): Unit = logger.info(s"[Network] Peer connected. $port")
+
+  def StartedWatchingWallet(walletInfo: WalletInfo): Unit = logger.info(s"[Wallet] Started watching wallet. pubKey=${walletInfo.publicKey}")
 
   private val logger: Logger = Logger("[BTC_WALLET]")
 }
