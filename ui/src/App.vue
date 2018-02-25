@@ -1,14 +1,26 @@
 <template>
   <div class="App">
     <h1>{{ appSummary }}</h1>
-    <vue-play></vue-play>
+    <router-view></router-view>
+
+    <!-- FOR DEVELOPMENT -->
+    <b-form-textarea id="textarea1"
+                     placeholder="Enter something"
+                     :rows="3"
+                     readonly
+                     :value="wallet">
+    </b-form-textarea>
   </div>
 </template>
 <script>
-  import VuePlay from './components/VuePlay.vue'
   export default {
     mounted () {
       this.getSummary(summary => this.appSummary = summary.content)
+    },
+    computed: {
+      wallet () {
+        return JSON.stringify(this.$store.getters.getWallet, null, 2)
+      }
     },
     data () {
       return {
@@ -17,70 +29,13 @@
     },
     methods: {
       getSummary (cb) {
-        return fetch(`/v1/summary`, {
-          accept: "application/json"
-        })
-          .then(this.checkStatus)
-          .then(this.parseJSON)
+        this.axios.get(`/v1/summary`)
+          .then(res => res.data)
           .then(cb)
-      },
-
-      checkStatus (response) {
-        if (response.status >= 200 && response.status < 300) {
-          return response;
-        }
-        const error = new Error(`HTTP Error ${response.statusText}`);
-        error.status = response.statusText;
-        error.response = response;
-        console.log(error); // eslint-disable-line no-console
-        throw error;
-      },
-
-      parseJSON (response) {
-        return response.json();
+          .catch(console.error)
       }
-    },
-    components: {
-      VuePlay
     }
   }
 </script>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: rgb(39, 40, 34);
-    color: #f0f8ff;
-  }
-
-  a {
-    color: #00ffff;
-  }
-
-  .App {
-    text-align: center;
-  }
-
-  .App-logo {
-    animation: bounce 0.8s infinite alternate;
-    -webkit-animation: bounce 0.8s infinite alternate;
-  }
-
-  @keyframes bounce {
-    from {
-      transform: translateY(35px);
-    }
-    to {
-      transform: translateY(-25px);
-    }
-  }
-  @-webkit-keyframes bounce {
-    from {
-      transform: translateY(35px);
-    }
-    to {
-      transform: translateY(-25px);
-    }
-  }
 </style>

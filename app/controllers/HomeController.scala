@@ -9,7 +9,7 @@ import play.api.mvc._
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def appSummary = Action {
-    Ok(Json.obj("content" -> "Scala Play Vue Seed"))
+    Ok(Json.obj("content" -> "BTC-Wallet"))
   }
 
   def testWallet = Action {

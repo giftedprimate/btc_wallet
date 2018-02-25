@@ -1,4 +1,4 @@
-name := """scala-play-vue-seed"""
+name := """btc_wallet"""
 
 version := "1.0-SNAPSHOT"
 
